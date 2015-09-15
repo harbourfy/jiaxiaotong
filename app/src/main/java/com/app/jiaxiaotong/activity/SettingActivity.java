@@ -1,7 +1,9 @@
 package com.app.jiaxiaotong.activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +29,7 @@ import com.easemob.chat.EMChatManager;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SettingActivity extends BaseActivity implements View.OnClickListener,LoadFinishedListener{
+public class SettingActivity extends BaseActivity implements View.OnClickListener, LoadFinishedListener {
 
     private SettingActivity activity = SettingActivity.this;
 
@@ -49,7 +51,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void initView() {
-        ToolBarUtils.initToolBar(activity,"系统设置");
+        ToolBarUtils.initToolBar(activity, "系统设置");
         serverPhoneTv = (TextView) findViewById(R.id.setting_server_phone_tv);
         TextView reportInfoTv = (TextView) findViewById(R.id.setting_report_info_tv);
         TextView aboutAppTv = (TextView) findViewById(R.id.setting_about_app_tv);
@@ -63,21 +65,31 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         loginOutTv.setOnClickListener(this);
     }
 
-    private void getTel(){
+    private void getTel() {
         dialog.show();
-        Map<String,Object> reqMap = new HashMap<>();
-        reqMap.put(Constant.HEADER,LoginInfoKeeper.readUserInfo(activity).getToken());
+        Map<String, Object> reqMap = new HashMap<>();
+        reqMap.put(Constant.HEADER, LoginInfoKeeper.readUserInfo(activity).getToken());
         reqMap.put(Constant.SOURCE, ServiceConst.SERVICE_GET_SERVICE_TEL);
-        reqMap.put("url",ServiceConst.SERVICE_URL + "/open/api/mobiles/hotline");
+        reqMap.put("url", ServiceConst.SERVICE_URL + "/open/api/mobiles/hotline");
         BaseController.getServiceTel(activity, this, reqMap);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.setting_server_phone_tv:
                 //用intent启动拨打电话
                 Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tel));
+                if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for Activity#requestPermissions for more details.
+                    return;
+                }
                 startActivity(intent);
                 break;
             case R.id.setting_report_info_tv:

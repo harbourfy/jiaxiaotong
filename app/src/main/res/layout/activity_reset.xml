@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password_hint"
+            android:inputType="textPassword"
             android:layout_toLeftOf="@+id/forget_password_activity_password_visibility_iv"
             android:id="@+id/forget_password_activity_password_et"
             android:layout_gravity="center_horizontal" />

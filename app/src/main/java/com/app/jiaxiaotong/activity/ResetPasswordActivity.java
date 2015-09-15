@@ -6,6 +6,8 @@ import android.os.CountDownTimer;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -113,12 +115,14 @@ public class ResetPasswordActivity extends BaseActivity implements View.OnClickL
                 getAuthCode();
                 break;
             case R.id.forget_password_activity_password_visibility_iv:
-                if (isVisibility) {
-                    passwordEt.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                if (isVisibility) {//点击之后不可见
+                    isVisibility = false;
+                    passwordEt.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     visibilityIv.setImageResource(R.mipmap.pw_invisibility_icon);
                 }
-                else {
-                    passwordEt.setInputType(InputType.TYPE_NULL);
+                else {//点击之后可见
+                    isVisibility = true;
+                    passwordEt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     visibilityIv.setImageResource(R.mipmap.pw_visibility_icon);
                 }
                 break;

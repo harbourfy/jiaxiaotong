@@ -32,6 +32,7 @@ import com.app.jiaxiaotong.UserInfoKeeper;
 import com.app.jiaxiaotong.activity.UserCardActivity;
 import com.app.jiaxiaotong.data.ServiceConst;
 import com.app.jiaxiaotong.model.ContactModel;
+import com.app.jiaxiaotong.utils.GetFirstLetter;
 import com.app.jiaxiaotong.utils.GlideCircleTransform;
 import com.bumptech.glide.Glide;
 import com.easemob.util.EMLog;
@@ -209,12 +210,11 @@ public class ContactListAdapter extends ArrayAdapter<ContactModel>  implements S
                 final ArrayList<ContactModel> newValues = new ArrayList<ContactModel>();
                 for(int i=0;i<count;i++){
                     final ContactModel user = mOriginalList.get(i);
-                    String username = user.getCn();
+                    String username = GetFirstLetter.cn2py(user.getCn());;
 
                     if(username.startsWith(prefixString)){
                         newValues.add(user);
-                    }
-                    else{
+                    }else{
                         final String[] words = username.split(" ");
                         final int wordCount = words.length;
 
