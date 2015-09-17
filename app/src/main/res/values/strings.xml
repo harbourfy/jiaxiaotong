@@ -361,4 +361,5 @@
     <string name="title_activity_change_children_password">ChangeChildrenPasswordActivity</string>
     <string name="title_activity_user_card">UserCardActivity</string>
     <string name="title_activity_start">StartActivity</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
 </resources>

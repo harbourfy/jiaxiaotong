@@ -1,5 +1,6 @@
 package com.app.jiaxiaotong.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.jiaxiaotong.R;
+import com.app.jiaxiaotong.activity.WebViewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,14 +67,14 @@ public class ApplicationFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.application_checking_in_layout:
-
+                startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("type",0));
                 break;
             case R.id.application_class_notice_layout:
-
+                startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("type",1));
                 break;
-            case R.id.application_consume_layout:
-
-                break;
+//            case R.id.application_consume_layout:
+//
+//                break;
         }
     }
 }
